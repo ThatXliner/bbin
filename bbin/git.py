@@ -10,7 +10,7 @@ from . import utils
 GIT = shutil.which("git") or str(Path("/usr/bin/git"))
 
 if not GIT:
-    click.ClickException("You do not have git installed!")
+    raise click.ClickException("You do not have git installed!")
 
 def clone(
     url: str,
