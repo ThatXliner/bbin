@@ -4,7 +4,7 @@ import shutil
 import subprocess
 import tempfile
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Union
 
 import click
 import halo  # type: ignore
@@ -132,7 +132,7 @@ class Index:
             file.write(contents)
         return build_log
 
-    def install(self, executable: str, action: enums.InstallAction) -> None:
+    def install(self, executable: str, action: Union[enums.InstallAction, str]) -> None:
         # TODO: refactor code to reduce duplication
         # TODO: Handle already exists
         if action in {enums.InstallAction.move, "move"}:
