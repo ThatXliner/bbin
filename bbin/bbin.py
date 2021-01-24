@@ -4,7 +4,7 @@ import shutil
 import subprocess
 import tempfile
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Union
 
 import click
 import halo  # type: ignore
@@ -23,9 +23,9 @@ class Index:
         bin_path: str = "~/bin",
         app_path: str = "~/app",
     ):
-        bbin_dir = Path(bbin_path).expanduser()
-        binaries_dir = Path(bin_path).expanduser()
-        app_dir = Path(app_path).expanduser()
+        bbin_dir = Path(bbin_path)
+        binaries_dir = Path(bin_path)
+        app_dir = Path(app_path)
 
         self._bbin_path = bbin_dir
         self._app_path = app_dir
@@ -73,7 +73,7 @@ class Index:
         git.clone(url, directory=str(output))
         return output
 
-    def build(self, repository_path: Path) -> Optional[str]:
+    def build(self, repository_path: Path) -> str:
         assert repository_path.exists() and repository_path.is_dir()
         try:  # TODO: Implement dependency resolution
             # TODO: Implement compiler bootstrap
@@ -132,7 +132,7 @@ class Index:
             file.write(contents)
         return build_log
 
-    def install(self, executable: str, action: enums.InstallAction) -> None:
+    def install(self, executable: str, action: Union[enums.InstallAction, str]) -> None:
         # TODO: refactor code to reduce duplication
         # TODO: Handle already exists
         if action in {enums.InstallAction.move, "move"}:
