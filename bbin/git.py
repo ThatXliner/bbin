@@ -1,17 +1,21 @@
 """Git interaction"""
 import shutil
-import click
 
+from os import getenv
 from pathlib import Path
 from typing import Any, Optional
 
-from . import utils
+from . import utils, interface
 
 GIT = shutil.which("git") or str(Path("/usr/bin/git"))
 
 if not GIT:
-    raise click.ClickException("You do not have git installed!")
-
+    callback = Path(getenv("BBIN_GIT_CALLBACK", r"/usr/bin/git")
+    if getenv("BBIN_NO_WARN_GIT") != "True":
+        interface.warn(f'''You do not have git installed! BBin will use the default `{callback}` callback. You can change this by setting `BBIN_GIT_CALLBACK` to your Git executable.
+                       You can disable this warning in the future by setting `BBIN_NO_WARN_GIT` to `True`.'''
+                       
+                       
 def clone(
     url: str,
     directory: Optional[str] = None,
