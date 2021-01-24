@@ -3,10 +3,12 @@ import shutil
 from pathlib import Path
 from typing import Any, Optional
 
-from . import utils
+from . import utils, interface
 
 GIT = shutil.which("git") or str(Path("/usr/bin/git"))
 
+if not GIT:
+    interface.warn("You do not have git installed!")
 
 def clone(
     url: str,
