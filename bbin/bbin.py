@@ -73,7 +73,7 @@ class Index:
         git.clone(url, directory=str(output))
         return output
 
-    def build(self, repository_path: Path) -> Optional[str]:
+    def build(self, repository_path: Path) -> str:
         assert repository_path.exists() and repository_path.is_dir()
         try:  # TODO: Implement dependency resolution
             # TODO: Implement compiler bootstrap
