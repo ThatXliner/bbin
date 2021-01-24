@@ -1,4 +1,5 @@
 """Main entry point."""
+import os
 import os.path
 from pathlib import Path
 from typing import Optional, Tuple, Union
@@ -39,9 +40,16 @@ def main() -> None:
     default="move",
     type=click.Choice(["move", "symlink", "copy"], case_sensitive=False),
 )
-@click.option("--index-path", default=os.path.expanduser("~/.config/bbin"))
-@click.option("--bin-path", default=os.path.expanduser("~/bin"))
-@click.option("--app-path", default=os.path.expanduser("~/app"))
+@click.option(
+    "--index-path",
+    default=lambda: os.getenv("BBIN_PATH", os.path.expanduser("~/.config/bbin")),
+)
+@click.option(
+    "--bin-path", default=lambda: os.getenv("BIN_PATH", os.path.expanduser("~/bin"))
+)
+@click.option(
+    "--app-path", default=lambda: os.getenv("APP_PATH", os.path.expanduser("~/app"))
+)
 def install(
     thing: Tuple[enums.InstallType, Union[Path, str]],
     action: str,
