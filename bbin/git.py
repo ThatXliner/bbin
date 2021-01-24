@@ -7,7 +7,7 @@ from typing import Any, Optional
 
 from . import utils, interface
 
-GIT = shutil.which("git") or str(Path("/usr/bin/git"))
+GIT = shutil.which("git")
 
 if not GIT:
     callback = Path(getenv("BBIN_GIT_CALLBACK", "/usr/bin/git"))
