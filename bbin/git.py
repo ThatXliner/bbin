@@ -1,14 +1,16 @@
 """Git interaction"""
 import shutil
+import click
+
 from pathlib import Path
 from typing import Any, Optional
 
-from . import utils, interface
+from . import utils
 
 GIT = shutil.which("git") or str(Path("/usr/bin/git"))
 
 if not GIT:
-    interface.warn("You do not have git installed!")
+    click.ClickException("You do not have git installed!")
 
 def clone(
     url: str,
