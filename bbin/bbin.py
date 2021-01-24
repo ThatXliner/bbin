@@ -23,9 +23,9 @@ class Index:
         bin_path: str = "~/bin",
         app_path: str = "~/app",
     ):
-        bbin_dir = Path(bbin_path).expanduser()
-        binaries_dir = Path(bin_path).expanduser()
-        app_dir = Path(app_path).expanduser()
+        bbin_dir = Path(bbin_path)
+        binaries_dir = Path(bin_path)
+        app_dir = Path(app_path)
 
         self._bbin_path = bbin_dir
         self._app_path = app_dir
