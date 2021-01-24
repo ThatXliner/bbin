@@ -12,9 +12,9 @@ if not GIT:
     callback = Path(getenv("BBIN_GIT_CALLBACK", "/usr/bin/git"))
     if getenv("BBIN_NO_WARN_GIT") != "1":
         interface.warn(
-            "You do not have git installed! "
+            "You do not have git installed (or it is not on your $PATH)! "
             f"BBin will use the default `{callback}` callback. "
-            "You can change this by setting `BBIN_GIT_CALLBACK` to your Git executable.\n"
+            "You can change this by setting `BBIN_GIT_CALLBACK` to your Git executable.\n\n"
             "You can disable this warning in the future by setting `BBIN_NO_WARN_GIT` to `1`."
         )
 
