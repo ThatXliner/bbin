@@ -57,7 +57,7 @@ def install(
     bin_path: str,
     app_path: str,
 ) -> None:
-    """Install a package"""
+    """Install a package. THING must be a URL, a path to an executable, or a package's name."""
     if thing[0] == enums.InstallType.PKG:
         package_name = thing[1]
         assert isinstance(package_name, str)
