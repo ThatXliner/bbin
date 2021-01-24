@@ -1,4 +1,5 @@
 """Main entry point."""
+import os.path
 from pathlib import Path
 from typing import Optional, Tuple, Union
 
@@ -38,12 +39,21 @@ def main() -> None:
     default="move",
     type=click.Choice(["move", "symlink", "copy"], case_sensitive=False),
 )
-def install(thing: Tuple[enums.InstallType, Union[Path, str]], action: str) -> None:
+@click.option("--index-path", default=os.path.expanduser("~/.config/bbin"))
+@click.option("--bin-path", default=os.path.expanduser("~/bin"))
+@click.option("--app-path", default=os.path.expanduser("~/app"))
+def install(
+    thing: Tuple[enums.InstallType, Union[Path, str]],
+    action: str,
+    index_path: str,
+    bin_path: str,
+    app_path: str,
+) -> None:
     """Install a package"""
     if thing[0] == enums.InstallType.PKG:
         package_name = thing[1]
         assert isinstance(package_name, str)
-        index = bbin.Index()
+        index = bbin.Index(bbin_path=index_path, bin_path=bin_path, app_path=app_path)
         url = index.get_url(package_name)
         if url is None:
             raise click.BadParameter("Invalid package name: package not found")
