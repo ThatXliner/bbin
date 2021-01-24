@@ -10,10 +10,10 @@ from . import utils, interface
 GIT = shutil.which("git") or str(Path("/usr/bin/git"))
 
 if not GIT:
-    callback = Path(getenv("BBIN_GIT_CALLBACK", r"/usr/bin/git")
-    if getenv("BBIN_NO_WARN_GIT") != "True":
+    callback = Path(getenv("BBIN_GIT_CALLBACK", "/usr/bin/git"))
+    if getenv("BBIN_NO_WARN_GIT") != "1":
         interface.warn(f'''You do not have git installed! BBin will use the default `{callback}` callback. You can change this by setting `BBIN_GIT_CALLBACK` to your Git executable.
-                       You can disable this warning in the future by setting `BBIN_NO_WARN_GIT` to `True`.'''
+                       You can disable this warning in the future by setting `BBIN_NO_WARN_GIT` to `1`.'''
                        
                        
 def clone(
