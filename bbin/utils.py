@@ -3,8 +3,9 @@
 import hashlib
 import os
 import subprocess
+import urllib.parse
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, List, Optional
 
 import halo  # type: ignore
 
@@ -37,3 +38,8 @@ def run_subprocess(
 
 def is_an_executable(path: Path) -> bool:
     return path.is_file() and os.access(path, os.F_OK | os.X_OK)
+
+
+def get_folder_name_from_url(url: str) -> str:
+    assert url.endswith(".git")
+    return urllib.parse.urlparse(url).path.split("/")[-1]

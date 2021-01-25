@@ -22,6 +22,7 @@ if not GIT:
 def clone(
     url: str,
     directory: Optional[str] = None,
+    cwd: Optional[str] = None,
     silent: bool = True,
     with_spinner: bool = True,
     **kwargs: Any,  # type: ignore
@@ -34,7 +35,7 @@ def clone(
     if silent:
         args.append("--quiet")
     utils.run_subprocess(
-        args, loading_text=f"Cloning {url}", with_spinner=with_spinner, **kwargs  # type: ignore
+        args, loading_text=f"Cloning {url}", with_spinner=with_spinner, cwd=cwd or str(Path(".")), **kwargs  # type: ignore
     )
 
 
