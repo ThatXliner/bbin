@@ -17,8 +17,8 @@ def check_hash(thing: bytes, checksum: str) -> bool:
 def run_subprocess(
     args: List[str],
     loading_text: str = "Loading",
-    fail_text: str = "Error",
-    success_text: str = "Done",
+    fail_text: Optional[str] = None,
+    success_text: Optional[str] = None,
     with_spinner: bool = True,
     spinner_color: Optional[str] = None,
     text_color: Optional[str] = None,
