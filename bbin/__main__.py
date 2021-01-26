@@ -62,21 +62,19 @@ def install(
 
     if thing[0] == enums.InstallType.PKG:
         package_name = thing[1]
-        assert isinstance(package_name, str)
         url = index.get_url(package_name)
         if url is None:
             raise click.BadParameter("Invalid package name: package not found")
 
         index.install(index.build(index.download(package_name, url)), action.lower())
     elif thing[0] == enums.InstallType.URL:
-        assert isinstance(thing[1], str)
         url = thing[1]
         package_name = utils.get_folder_name_from_url(url)
 
         index.install(index.build(index.download(package_name, url)), action.lower())
 
     elif thing[0] == enums.InstallType.EXE:
-        assert isinstance(thing[1], str)
+        # TODO: Also make sure this is managed by bbin
         index.install(thing[1], action.lower())
 
 
