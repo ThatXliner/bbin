@@ -2,11 +2,11 @@
 import os
 import os.path
 from pathlib import Path
-from typing import Optional, Tuple, Union
+from typing import Optional, Tuple
 
 import click
 
-from . import bbin, enums, git, utils
+from . import bbin, enums, utils
 
 
 class Installable(click.ParamType):
