@@ -4,6 +4,8 @@ from os import getenv
 from pathlib import Path
 from typing import Any, Optional
 
+import certifi
+
 from . import interface, utils
 
 GIT = shutil.which("git")
@@ -27,7 +29,11 @@ def clone(
     **kwargs: Any,  # type: ignore
 ) -> None:
     """Clone a repository using the given URL"""
-    args = [GIT, "clone", url]
+    args = [
+        GIT, "-c", f"http.sslCAInfo={certifi.where()}",
+        "-c", "http.sslCAPath=",
+        "-c", "http.schannelUseSSLCAInfo=true", "clone", url,
+    ]
     if directory is not None:
         assert isinstance(directory, str)
         args.append(directory)
@@ -45,7 +51,11 @@ def pull(
     **kwargs: Any,  # type: ignore
 ) -> None:
     """Update a repository"""
-    args = [GIT, "-C", repo, "pull"]
+    args = [
+        GIT, "-c", f"http.sslCAInfo={certifi.where()}",
+        "-c", "http.sslCAPath=",
+        "-c", "http.schannelUseSSLCAInfo=true", "-C", repo, "pull",
+    ]
     if silent:
         args.append("--quiet")
     utils.run_subprocess(
